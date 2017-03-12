@@ -9,19 +9,10 @@ var fs = require('fs');
 // Chargement du fichier index.html affiché au client
 var server = http.createServer(function(req, res) {
   var path = url.parse(req.url).pathname;
-  switch(path){
-    case '/login' :
-     fs.readFile('./login.html', 'utf-8', function(error, content) {
-        res.writeHead(200, {"Content-Type": "text/html"});
-        res.end(content);
-    });
-    default:
     fs.readFile('./index.html', 'utf-8', function(error, content) {
         res.writeHead(200, {"Content-Type": "text/html"});
         res.end(content);
     });
-    break;
-  }
 });
 
 // Chargement de socket.io
@@ -33,7 +24,7 @@ io.sockets.on('connection', function (socket) {
     socket.emit('login', false);
 });
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 8080));
 server.listen(app.get('port'));
 
 io.sockets.on('connection', function (socket, username) {

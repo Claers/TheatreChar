@@ -15,7 +15,6 @@
         <input type="button" id="log" value="Se connecter">
     </div>
     <div id="message">
-        <p><input type="button" value="Embêter le serveur" id="poke" /></p>
          
         <p> Message : </p>
         <input type="text" id="m" autocomplete="off">
@@ -30,7 +29,8 @@
         <script src="/socket.io/socket.io.js"></script>
 
         <script>
-            var socket = io.connect('http://localhost:5000');
+            var url = window.location.href;
+            var socket = io.connect(url);
             
             socket.on('username', function(username){
                 user = username;
@@ -61,7 +61,7 @@
             })
 
         function insereMessage(user, message) {
-                $('#chatbox').prepend('<p><strong>' + user + '</strong> ' + message + '</p>');
+                $('#chatbox').prepend('<p><strong>' + user + ' : </strong> ' + message + '</p>');
             }
         </script>
     </body>
