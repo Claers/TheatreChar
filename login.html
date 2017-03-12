@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<form>
+	Identifiant :
+	<input type="text" id="Id">
+	Mot de passe : 
+	<input type="password" id="mdp">
+	<br><br>
+	<input type="submit" value="Se connecter">
+	</form>
+	<script>
+	var socket = io.connect('http://localhost:8080');
+	$('form').submit(function(){
+		var logs = { userid : $('#Id').val() , password : $('#mdp').val() };
+		socket.emit('login', logs);
+	});
+</script>
+</body>
+</html>

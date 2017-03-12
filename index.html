@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Socket.io</title>
+    </head>
+ 
+    <body>
+     <div id="login">
+        Identifiant :
+        <input type="text" id="Id">
+        Mot de passe : 
+        <input type="password" id="mdp">
+        <br><br>
+        <input type="button" id="log" value="Se connecter">
+    </div>
+    <div id="message">
+        <p><input type="button" value="Embêter le serveur" id="poke" /></p>
+         
+        <p> Message : </p>
+        <input type="text" id="m">
+        <br>
+        <input type="button" value="Envoyer" id="mess">
+
+        <div id="chatbox">
+            <p> Chat : </p>
+        </div>
+    </div>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script>
+            var socket = io.connect('http://localhost:8080');
+            
+            socket.on('username', function(username){
+                user = username;
+            });
+
+            socket.on('login',function(ok){
+                    if (ok) {
+                        $("#message").show();
+                        $("#login").hide();
+                    }
+            });
+
+            $('#log').click(function(){
+                var logs = { userid : $('#Id').val() , password : $('#mdp').val() };
+                socket.emit('login', logs);
+                var logs = {};
+              });
+
+            $('#mess').click(function () {
+                var message = $('#m').val();
+                socket.emit('message', message);
+                insereMessage("flo", message)
+                $('m').val('');
+            }) 
+
+            socket.on('message', function(data) {
+                insereMessage(data.user, data.message)
+            })
+
+        function insereMessage(user, message) {
+                $('#chatbox').prepend('<p><strong>' + user + '</strong> ' + message + '</p>');
+            }
+        </script>
+    </body>
+</html>
