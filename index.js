@@ -26,9 +26,10 @@ io.sockets.on('connection', function (socket) {
 
 app.set('port', (process.env.PORT || 8080));
 server.listen(app.get('port'));
-
+var save = ["Demmarage du chat", "42 est la réponse"];
 io.sockets.on('connection', function (socket, username) {
-    console.log('anus');
+
+    socket.emit('logs', save );
    // Quand le serveur reçoit un signal de type "message" du client    
 
      socket.on('login', function (data){
@@ -58,6 +59,8 @@ io.sockets.on('connection', function (socket, username) {
     });
 
      socket.on('message', function(message){
+       row = "<strong>" + socket.username + "</strong>" + " : " + message;
+       save.push(row);
        socket.broadcast.emit('message', {user: socket.username, message: message});
        console.log('Un client me parle !' + socket.Username +' me dit : ' + message);
      });

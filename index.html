@@ -7,19 +7,22 @@
  
     <body>
      <div id="login">
+     <form id="log">
         Identifiant :
         <input type="text" id="Id">
         Mot de passe : 
         <input type="password" id="mdp">
         <br><br>
-        <input type="button" id="log" value="Se connecter">
+        <input type="submit" value="Se connecter">
+        </form>
     </div>
     <div id="message">
-         
+         <form id="mess">
         <p> Message : </p>
         <input type="text" id="m" autocomplete="off">
         <br>
-        <input type="button" value="Envoyer" id="mess">
+        <input type="submit" value="Envoyer">
+        </form>
 <p> Chat : </p>
         <div id="chatbox">
             
@@ -42,18 +45,26 @@
                         $("#login").hide();
                     }
             });
-
-            $('#log').click(function(){
+            socket.on('logs', function(logs){
+                logs.forEach(function(save){
+                    $('#chatbox').prepend('<p>' + save + '</p>');
+                });
+                
+            });
+            $('#log').submit(function(){
                 var logs = { userid : $('#Id').val() , password : $('#mdp').val() };
                 socket.emit('login', logs);
                 var logs = {};
+                return false;
               });
 
-            $('#mess').click(function () {
+            $('#mess').submit(function () {
                 var message = $('#m').val();
                 socket.emit('message', message);
                 insereMessage(user, message)
-                $('m').val('');
+
+                $('#m').val('');
+                return false;
             }) 
 
             socket.on('message', function(data) {
