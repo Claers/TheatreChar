@@ -55,6 +55,15 @@ io.sockets.on('connection', function (socket, username) {
           socket.emit('username', username);
         }
       }
+       if (id == "test") {
+        if (pass == "test"){
+          var loged = true;
+          socket.emit('login', loged);
+          var username = "Adrien";
+          socket.username = "Arien";
+          socket.emit('username', username);
+        }
+      }
        console.log(id + pass);
     });
 
