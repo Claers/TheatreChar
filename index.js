@@ -28,7 +28,7 @@ app.set('port', (process.env.PORT || 8080));
 server.listen(app.get('port'));
 
 io.sockets.on('connection', function (socket, username) {
-
+    console.log('anus');
    // Quand le serveur reçoit un signal de type "message" du client    
 
      socket.on('login', function (data){
