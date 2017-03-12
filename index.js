@@ -2,9 +2,13 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var url = require('url');
-
+var ent = require('ent');
 var http = require('http');
 var fs = require('fs');
+
+var helmet = require('helmet')
+
+app.use(helmet())
 
 // Chargement du fichier index.html affiché au client
 var server = http.createServer(function(req, res) {
@@ -35,7 +39,8 @@ io.sockets.on('connection', function (socket, username) {
      socket.on('login', function (data){
        var id = data.userid;
        var pass = data.password;
-
+       id = ent.encode(id);
+       pass = ent.encode(pass);
        if (id == "FloRon") {
         if (pass == "Flo974"){
           var loged = true;
@@ -68,9 +73,11 @@ io.sockets.on('connection', function (socket, username) {
     });
 
      socket.on('message', function(message){
+      message = ent.encode(message);
        row = "<strong>" + socket.username + "</strong>" + " : " + message;
        save.push(row);
-       socket.broadcast.emit('message', {user: socket.username, message: message});
+       
+       socket.emit('message', {user: socket.username, message: message});
        console.log('Un client me parle !' + socket.Username +' me dit : ' + message);
      });
 });
