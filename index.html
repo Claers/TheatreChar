@@ -18,19 +18,19 @@
         <p><input type="button" value="Embêter le serveur" id="poke" /></p>
          
         <p> Message : </p>
-        <input type="text" id="m">
+        <input type="text" id="m" autocomplete="off">
         <br>
         <input type="button" value="Envoyer" id="mess">
-
+<p> Chat : </p>
         <div id="chatbox">
-            <p> Chat : </p>
+            
         </div>
     </div>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
 
         <script>
-            var socket = io.connect('http://localhost:8080');
+            var socket = io.connect('http://localhost:5000');
             
             socket.on('username', function(username){
                 user = username;
@@ -52,7 +52,7 @@
             $('#mess').click(function () {
                 var message = $('#m').val();
                 socket.emit('message', message);
-                insereMessage("flo", message)
+                insereMessage(user, message)
                 $('m').val('');
             }) 
 

@@ -48,9 +48,9 @@ io.sockets.on('connection', function (socket, username) {
         if (pass == "Flo974"){
           var loged = true;
           socket.emit('login', loged);
-          var Username = "Florent";
-          socket.Username = "Florent";
-          socket.emit('username', Username);
+          var username = "Florent";
+          socket.username = "Florent";
+          socket.emit('username', username);
         }
        }
 
@@ -60,6 +60,7 @@ io.sockets.on('connection', function (socket, username) {
           socket.emit('login', loged);
           var username = "Adrien";
           socket.username = "Arien";
+          socket.emit('username', username);
         }
       }
        console.log(id + pass);
