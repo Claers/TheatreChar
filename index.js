@@ -33,8 +33,8 @@ io.sockets.on('connection', function (socket) {
     socket.emit('login', false);
 });
 
-
-server.listen(8080);
+app.set('port', (process.env.PORT || 5000));
+server.listen(app.get('port'));
 
 io.sockets.on('connection', function (socket, username) {
 
