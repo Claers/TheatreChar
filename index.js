@@ -59,8 +59,8 @@ io.sockets.on('connection', function (socket, username) {
         if (pass == "test"){
           var loged = true;
           socket.emit('login', loged);
-          var username = "Adrien";
-          socket.username = "Arien";
+          var username = "Robot";
+          socket.username = "Robot";
           socket.emit('username', username);
         }
       }
