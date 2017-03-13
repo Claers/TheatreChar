@@ -24,20 +24,27 @@
         <input type="submit" value="Envoyer">
         </form>
 <p> Chat : </p>
+    </div>
         <div id="chatbox">
             
         </div>
-    </div>
         <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
 
         <script>
-        $("#message").hide();
+            var messageaud = new Audio('https://doc-0g-1s-docs.googleusercontent.com/docs/securesc/o7531l2ermuiog2o9q73o7tq9d6s9uu5/0os19brksac1d80l8sck02o0hlu805hv/1489406400000/14711920894557999018/14711920894557999018/0B8SlWJLsv4c9N3NvMXRBQk5xVWs?e=download');
+                $("#message").hide();
+            
+            var connecaud = new Audio("https://doc-0o-1s-docs.googleusercontent.com/docs/securesc/o7531l2ermuiog2o9q73o7tq9d6s9uu5/0s5g6ahnjbt41lhddbhn7ia0ilj1j952/1489406400000/14711920894557999018/14711920894557999018/0B8SlWJLsv4c9M3dMSEJqVFR0cGs?e=download");
+
+            var discaudio = new Audio("https://doc-0s-1s-docs.googleusercontent.com/docs/securesc/o7531l2ermuiog2o9q73o7tq9d6s9uu5/hl83npnd8000amcvi49t1tbrfbogk1fj/1489413600000/14711920894557999018/14711920894557999018/0B8SlWJLsv4c9TktVOHZ4aUxBWEk?e=download");
             var url = window.location.href;
             var socket = io.connect(url);
             
             socket.on('username', function(username){
                 user = username;
+                connecaud.play();
+                 $('#chatbox').prepend('<p> <strong>' + user + " c'est connecté !" + ' </strong> </p>');
             });
 
             socket.on('login',function(ok){
@@ -46,6 +53,11 @@
                         $("#login").hide();
                     }
             });
+
+            socket.on('disco', function(user){
+                $('#chatbox').prepend('<p> <strong>' + user + " c'est déconnecté !" + ' </strong> </p>');
+                discaudio.play();
+            })
             socket.on('logs', function(logs){
                 logs.forEach(function(save){
                     $('#chatbox').prepend('<p>' + save + '</p>');
@@ -60,19 +72,29 @@
               });
 
             $('#mess').submit(function () {
-
-                var message = $('#m').val();
-                socket.emit('message', message);
-
-
-                $('#m').val('');
-                return false;
-            }) 
+                if ($('#m').val().length == 0){
+                    return false;
+                }
+                else if($('#m').val().length > 0){
+                    var message = $('#m').val();
+                    socket.emit('message', message);
+                    $('#m').val('');
+                    return false;
+                }
+            });
 
             socket.on('message', function(data) {
                 insereMessage(data.user, data.message)
+                messageaud.play();
             })
 
+             socket.on('messageu', function(data) {
+                insereMessage(data.user, data.message)
+            })
+
+             function isEmpty(str) {
+                 return (!str || 0 === str.length);
+            }
         function insereMessage(user, message) {
                 $('#chatbox').prepend('<p><strong>' + user + ' : </strong> ' + message + '</p>');
             }

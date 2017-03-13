@@ -13,12 +13,21 @@ app.use(helmet())
 // Chargement du fichier index.html affiché au client
 var server = http.createServer(function(req, res) {
   var path = url.parse(req.url).pathname;
+   switch(path){
+    case '/chatnotif.mp3' :
+     fs.readFile( 'D:/Apps/theatrechat/TheatreChar/chatnotif.mp3', 'utf-8', function(error, content) {
+        res.writeHead(200, {"Content-Type": "audio/mpeg"});
+        res.end(content);
+    });
+     break;
+     default:
     fs.readFile('./index.html', 'utf-8', function(error, content) {
         res.writeHead(200, {"Content-Type": "text/html"});
         res.end(content);
-    });
+      });
+     break;
+  }
 });
-
 // Chargement de socket.io
 var io = require('socket.io').listen(server);
 
@@ -28,9 +37,10 @@ io.sockets.on('connection', function (socket) {
     socket.emit('login', false);
 });
 
+
 app.set('port', (process.env.PORT || 8080));
 server.listen(app.get('port'));
-var save = ["Demmarage du chat", "42 est la réponse"];
+var save = ["Démarrage du chat"];
 io.sockets.on('connection', function (socket, username) {
 
     socket.emit('logs', save );
@@ -41,43 +51,66 @@ io.sockets.on('connection', function (socket, username) {
        var pass = data.password;
        id = ent.encode(id);
        pass = ent.encode(pass);
-       if (id == "FloRon") {
-        if (pass == "Flo974"){
-          var loged = true;
-          socket.emit('login', loged);
-          var username = "Florent";
-          socket.username = "Florent";
-          socket.emit('username', username);
-        }
+       switch (id + " | " + pass){
+          case "FloRon | Flo974":
+            var loged = true;
+            socket.emit('login', loged);
+            var username = "Florent";
+            socket.username = "Florent";
+            socket.emit('username', username);
+            socket.broadcast.emit('username', username);
+            break;
+
+          case "AdriChien | jepue":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Adrien";
+             socket.username = "Adrien";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
+
+          case "test | test":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Robot";
+             socket.username = "Robot";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
+
+          case "Simon | moncul":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Robot";
+             socket.username = "Robot";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
+
+          case "Paul | mars":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Robot";
+             socket.username = "Robot";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
        }
 
-      if (id == "AdriChien") {
-        if (pass == "jepue"){
-          var loged = true;
-          socket.emit('login', loged);
-          var username = "Adrien";
-          socket.username = "Arien";
-          socket.emit('username', username);
-        }
-      }
-       if (id == "test") {
-        if (pass == "test"){
-          var loged = true;
-          socket.emit('login', loged);
-          var username = "Robot";
-          socket.username = "Robot";
-          socket.emit('username', username);
-        }
-      }
        console.log(id + pass);
     });
 
      socket.on('message', function(message){
       message = ent.encode(message);
        row = "<strong>" + socket.username + "</strong>" + " : " + message;
-       save.push(row);
-       
-       socket.emit('message', {user: socket.username, message: message});
-       console.log('Un client me parle !' + socket.Username +' me dit : ' + message);
+       save.push(row);      
+       socket.emit('messageu', {user: socket.username, message: message});
+       socket.broadcast.emit('message', {user: socket.username, message: message});
+       console.log( socket.username +' me dit : ' + message);
      });
+
+     socket.on('disconnect', function(){
+    socket.broadcast.emit('disco', socket.username);
+});
 });
