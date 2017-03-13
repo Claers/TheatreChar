@@ -96,6 +96,15 @@ io.sockets.on('connection', function (socket, username) {
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
              break;
+
+          case "Denis | sansnez":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Robot";
+             socket.username = "Robot";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
        }
 
        console.log(id + pass);
