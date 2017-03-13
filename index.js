@@ -82,8 +82,8 @@ io.sockets.on('connection', function (socket, username) {
           case "Simon | moncul":
              var loged = true;
              socket.emit('login', loged);
-             var username = "Robot";
-             socket.username = "Robot";
+             var username = "Simon";
+             socket.username = "Simon";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
              break;
@@ -91,8 +91,8 @@ io.sockets.on('connection', function (socket, username) {
           case "Paul | mars":
              var loged = true;
              socket.emit('login', loged);
-             var username = "Robot";
-             socket.username = "Robot";
+             var username = "Paul";
+             socket.username = "Paul";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
              break;
@@ -100,8 +100,8 @@ io.sockets.on('connection', function (socket, username) {
           case "Denis | sansnez":
              var loged = true;
              socket.emit('login', loged);
-             var username = "Robot";
-             socket.username = "Robot";
+             var username = "Denis";
+             socket.username = "Denis";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
              break;
