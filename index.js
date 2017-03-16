@@ -40,9 +40,9 @@ io.sockets.on('connection', function (socket) {
 
 app.set('port', (process.env.PORT || 8080));
 server.listen(app.get('port'));
-var save = ["Démarrage du chat"];
+var save = ["Démarrage du chat merci de vous reconnecter"];
 io.sockets.on('connection', function (socket, username) {
-
+    socket.username='nonconnecté';
     socket.emit('logs', save );
    // Quand le serveur reçoit un signal de type "message" du client    
 
@@ -153,6 +153,7 @@ io.sockets.on('connection', function (socket, username) {
 
           default: 
             socket.emit('login', 'incorrect');
+            console.log('incorrect');
             break;
 
        }
@@ -161,18 +162,22 @@ io.sockets.on('connection', function (socket, username) {
     });
 
      socket.on('message', function(message){
+      if (socket.username = 'nonconnecté'){
+        socket.emit('login', 'reload');
+      }
+      else {
       message = ent.encode(message);
+
        row = "<strong>" + socket.username + "</strong>" + " : " + message;
        save.push(row);      
        socket.emit('messageu', {user: socket.username, message: message});
        socket.broadcast.emit('message', {user: socket.username, message: message});
        console.log( socket.username +' me dit : ' + message);
-     });
+     }});
 
      socket.on('disconnect', function(){
       if (socket.username != null){
         socket.broadcast.emit('disco', socket.username);
       }
-    
-});
+    });
 });

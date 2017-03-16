@@ -46,6 +46,11 @@
             var discaudio = new Audio("http://vocaroo.com/media_command.php?media=s0I5xPb1yGTP&command=download_mp3");
             var url = window.location.href;
             var socket = io.connect(url);
+
+            socket.on('error', function() {
+                location.reload();
+            });
+
             
             socket.on('username', function(username){
                 user = username;
@@ -62,6 +67,9 @@
                     }
                     if (ok == 'incorrect'){
                         alert("Incorrect");
+                    }
+                    if (ok == 'reload'){
+                        location.reload();
                     }
             });
 
