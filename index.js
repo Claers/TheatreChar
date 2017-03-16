@@ -52,7 +52,7 @@ io.sockets.on('connection', function (socket, username) {
        id = ent.encode(id);
        pass = ent.encode(pass);
        switch (id + " | " + pass){
-          case "FloRon | Flo974":
+          case "FloRon | flo974":
             var loged = true;
             socket.emit('login', loged);
             var username = "Florent";
@@ -79,7 +79,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.broadcast.emit('username', username);
              break;
 
-          case "Simon | moncul":
+          case "Simon | cul":
              var loged = true;
              socket.emit('login', loged);
              var username = "Simon";
@@ -105,6 +105,52 @@ io.sockets.on('connection', function (socket, username) {
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
              break;
+
+          case "Nancy | cynan":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Nancy";
+             socket.username = "Nancy";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
+
+          case "Mallaury | drago":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Mallaury";
+             socket.username = "Mallaury";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
+
+          case "Jonathan | leblack":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Jonathan";
+             socket.username = "Jonathan";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
+
+           case "Amandine | bellatrix":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Amandine";
+             socket.username = "Amandine";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
+
+           case "Caroline | killian":
+             var loged = true;
+             socket.emit('login', loged);
+             var username = "Caroline";
+             socket.username = "Caroline";
+             socket.emit('username', username);
+             socket.broadcast.emit('username', username);
+             break;
+
        }
 
        console.log(id + pass);
@@ -120,6 +166,9 @@ io.sockets.on('connection', function (socket, username) {
      });
 
      socket.on('disconnect', function(){
-    socket.broadcast.emit('disco', socket.username);
+      if (socket.username != null){
+        socket.broadcast.emit('disco', socket.username);
+      }
+    
 });
 });

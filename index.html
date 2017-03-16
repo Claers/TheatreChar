@@ -6,45 +6,51 @@
     </head>
  
     <body>
+    <div id="header">
+        <h1 id="title"> Chat du club théatre </h1>
+    </div>
      <div id="login">
      <form id="log">
-        Identifiant :
+        Id :
         <input type="text" id="Id">
-        Mot de passe : 
+        <br>
+        Mdp : 
         <input type="password" id="mdp">
         <br><br>
         <input type="submit" value="Se connecter">
         </form>
     </div>
+
+    <div id="chatbox">
+            
+        </div>
     <div id="message">
          <form id="mess">
         <p> Message : </p>
         <input type="text" id="m" autocomplete="off">
         <br>
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Envoyer" id='send'>
         </form>
-<p> Chat : </p>
+
     </div>
-        <div id="chatbox">
-            
-        </div>
+        
         <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
 
         <script>
-            var messageaud = new Audio('https://doc-0g-1s-docs.googleusercontent.com/docs/securesc/o7531l2ermuiog2o9q73o7tq9d6s9uu5/0os19brksac1d80l8sck02o0hlu805hv/1489406400000/14711920894557999018/14711920894557999018/0B8SlWJLsv4c9N3NvMXRBQk5xVWs?e=download');
+            var messageaud = new Audio('http://vocaroo.com/media_command.php?media=s0ruoB8zS2Ql&command=download_mp3');
                 $("#message").hide();
             
-            var connecaud = new Audio("https://doc-0o-1s-docs.googleusercontent.com/docs/securesc/o7531l2ermuiog2o9q73o7tq9d6s9uu5/0s5g6ahnjbt41lhddbhn7ia0ilj1j952/1489406400000/14711920894557999018/14711920894557999018/0B8SlWJLsv4c9M3dMSEJqVFR0cGs?e=download");
+            var connecaud = new Audio("http://vocaroo.com/media_command.php?media=s1rxb8GtBy79&command=download_mp3");
 
-            var discaudio = new Audio("https://doc-0s-1s-docs.googleusercontent.com/docs/securesc/o7531l2ermuiog2o9q73o7tq9d6s9uu5/hl83npnd8000amcvi49t1tbrfbogk1fj/1489413600000/14711920894557999018/14711920894557999018/0B8SlWJLsv4c9TktVOHZ4aUxBWEk?e=download");
+            var discaudio = new Audio("http://vocaroo.com/media_command.php?media=s09ip6daZFIZ&command=download_mp3");
             var url = window.location.href;
             var socket = io.connect(url);
             
             socket.on('username', function(username){
                 user = username;
                 connecaud.play();
-                 $('#chatbox').prepend('<p> <strong>' + user + " c'est connecté !" + ' </strong> </p>');
+                 $('#chatbox').append('<p> <strong>' + user + " c'est connecté !" + ' </strong> </p>');
             });
 
             socket.on('login',function(ok){
@@ -55,13 +61,14 @@
             });
 
             socket.on('disco', function(user){
-                $('#chatbox').prepend('<p> <strong>' + user + " c'est déconnecté !" + ' </strong> </p>');
+                $('#chatbox').append('<p> <strong>' + user + " c'est déconnecté !" + ' </strong> </p>');
                 discaudio.play();
             })
             socket.on('logs', function(logs){
                 logs.forEach(function(save){
-                    $('#chatbox').prepend('<p>' + save + '</p>');
+                    $('#chatbox').append('<p>' + save + '</p>');
                 });
+                 scroll();
                 
             });
             $('#log').submit(function(){
@@ -79,6 +86,7 @@
                     var message = $('#m').val();
                     socket.emit('message', message);
                     $('#m').val('');
+                    
                     return false;
                 }
             });
@@ -86,18 +94,91 @@
             socket.on('message', function(data) {
                 insereMessage(data.user, data.message)
                 messageaud.play();
+                scroll();
             })
 
              socket.on('messageu', function(data) {
                 insereMessage(data.user, data.message)
+                scroll();
             })
 
              function isEmpty(str) {
                  return (!str || 0 === str.length);
             }
         function insereMessage(user, message) {
-                $('#chatbox').prepend('<p><strong>' + user + ' : </strong> ' + message + '</p>');
+                $('#chatbox').append('<p><strong>' + user + ' : </strong> ' + message + '</p>');
+            }
+
+
+            function scroll(){
+                var div = document.getElementById('chatbox');
+                div.scrollTop = '1000000';
             }
         </script>
+
+
+
+        <style>
+        #login {
+
+              padding-top: 40px;
+              text-align: center;
+               }
+
+        #login #mdp{
+              margin-right: 18px;
+        }
+        #chatbox{
+        position:fixed;
+        height: 800px;
+        width: 99%;
+        overflow:auto;
+        float: left;
+        position: relative;
+        margin-left: 5px;
+
+        }
+        #message{
+            
+             position: absolute; 
+            bottom:0;
+            padding-left: 0px;
+            padding-right: 92%;
+        }
+
+        #message #send{
+            position: absolute; 
+            margin-left: 100%;
+            float: right;
+            bottom:1%;
+
+        }
+        #message #m{
+            bottom:1%;
+            margin-left: 5px;
+            position: absolute;
+            padding-right: 90%;
+        }
+        #header{
+            text-align: center;
+            background-color: #e74c3c;
+           
+        }
+        body{
+            margin-top: 0;
+            margin:0;
+
+        }
+        html{
+            margin-top:0;
+            margin:0;
+        }
+        #title{
+            margin:0;
+            color:white;
+            text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+        }
+
+        </style>
     </body>
 </html>
