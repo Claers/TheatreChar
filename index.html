@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Socket.io</title>
+        <title>Chat Théatre</title>
     </head>
  
     <body>
@@ -51,17 +51,23 @@
                 user = username;
                 connecaud.play();
                  $('#chatbox').append('<p> <strong>' + user + " c'est connecté !" + ' </strong> </p>');
+                 scroll();
+
             });
 
             socket.on('login',function(ok){
-                    if (ok) {
+                    if (ok == 'log') {
                         $("#message").show();
                         $("#login").hide();
+                    }
+                    if (ok == 'incorrect'){
+                        alert("Incorrect");
                     }
             });
 
             socket.on('disco', function(user){
                 $('#chatbox').append('<p> <strong>' + user + " c'est déconnecté !" + ' </strong> </p>');
+                scroll();
                 discaudio.play();
             })
             socket.on('logs', function(logs){
@@ -143,8 +149,8 @@
         box-shadow: 1px 1px 2px #888888, 1px 1px 2px #888888;
         }
         #message{
-            
-             position: absolute; 
+            position: fixed;
+            position: absolute; 
             bottom:20px;
             padding-left: 0px;
             padding-right: 92%;

@@ -53,7 +53,7 @@ io.sockets.on('connection', function (socket, username) {
        pass = ent.encode(pass);
        switch (id + " | " + pass){
           case "FloRon | flo974":
-            var loged = true;
+            var loged = 'log';
             socket.emit('login', loged);
             var username = "Florent";
             socket.username = "Florent";
@@ -62,7 +62,7 @@ io.sockets.on('connection', function (socket, username) {
             break;
 
           case "AdriChien | jepue":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Adrien";
              socket.username = "Adrien";
@@ -71,7 +71,7 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
           case "test | test":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Robot";
              socket.username = "Robot";
@@ -80,7 +80,7 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
           case "Simon | cul":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Simon";
              socket.username = "Simon";
@@ -89,7 +89,7 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
           case "Paul | mars":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Paul";
              socket.username = "Paul";
@@ -98,7 +98,7 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
           case "Denis | sansnez":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Denis";
              socket.username = "Denis";
@@ -107,7 +107,7 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
           case "Nancy | cynan":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Nancy";
              socket.username = "Nancy";
@@ -116,7 +116,7 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
           case "Mallaury | drago":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Mallaury";
              socket.username = "Mallaury";
@@ -125,7 +125,7 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
           case "Jonathan | leblack":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Jonathan";
              socket.username = "Jonathan";
@@ -134,7 +134,7 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
            case "Amandine | bellatrix":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Amandine";
              socket.username = "Amandine";
@@ -143,13 +143,17 @@ io.sockets.on('connection', function (socket, username) {
              break;
 
            case "Caroline | killian":
-             var loged = true;
+             var loged = 'log';
              socket.emit('login', loged);
              var username = "Caroline";
              socket.username = "Caroline";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
              break;
+
+          default: 
+            socket.emit('login', 'incorrect');
+            break;
 
        }
 
