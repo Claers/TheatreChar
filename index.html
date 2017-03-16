@@ -40,12 +40,12 @@
         <script src="/socket.io/socket.io.js"></script>
 
         <script>
-            var messageaud = new Audio('https://s1.vocaroo.com/media/download_temp/Vocaroo_s0LCBZE8vRjv.mp3');
+            var messageaud = new Audio('https://cf-hls-media.sndcdn.com/media/0/25075/KL40GNfuKzZy.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLWhscy1tZWRpYS5zbmRjZG4uY29tL21lZGlhLyovKi9LTDQwR05mdUt6WnkuMTI4Lm1wMyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTQ4OTY3MzcwN319fV19&Signature=OsxRkBcWFOKmwISHlOi7VO4JfQeuH7y7nR81h2b9n~F8cgbSUWWl06q-a1vOLc9v264FJiLYFDNVpa~tO2XCOnyw2Jb9KfEKjnAKzzl4w13xAP6UGZlQ7BLrrqg3ZzJb6oTnptkPMZYFxZt8NL71QlD7oUM70UiVwRixdtDYFAxUSts4kS2FKRI638c2HJawW8biiOU7i4Ta1MwDZK6tKbL879LFb1p2iGe9B46J5Zjb4FDTRgKPVMzF1HOepyD704anedc~NukcyOnffC5kJX6udyENgME1HnmwDbooG~R4B2T-VmwMHZDm0mxdKep1swkxx~vEEyd~LRZz5WJGOw__&Key-Pair-Id=APKAJAGZ7VMH2PFPW6UQ');
                 $("#message").hide();
             
-            var connecaud = new Audio("https://vocaroo.com/media_command.php?media=s0I5xPb1yGTP&command=download_mp3");
+            var connecaud = new Audio("https://cf-hls-media.sndcdn.com/media/31763/79410/plJXhDQRAKHO.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLWhscy1tZWRpYS5zbmRjZG4uY29tL21lZGlhLyovKi9wbEpYaERRUkFLSE8uMTI4Lm1wMyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTQ4OTY3Mzc1M319fV19&Signature=foSx0t7H6cdz9SrFuwtdSw-jM~ajagm9Z1GKVSg-j8RkJKq2DoRyiGZ8oYE9iCGvbx5A9qVQYrluV-tdzmXdEG5LaO7X-uQaBDhrIyqPdcyAle5x4rso0AxL5-JTmKCMKSOagESoipfEaHLe8bE4neIejCg9VmOP~i2JYmD3p7P8SIpmbjxfgHZvqgzeHGRwX~oSycG1ssmzUNxwAhLxYqrSaQKbuVy4Lyj-3Ts0TtV7qvWPns2YGEUWsjwbe63KHs7zIvHpN1Rcp6uqIZQSicC6urmxk2LvQpOVpYv7b4D~U9zXZ1R9jr7EoSgntMhTiEiujv2O474Qo00eyj5ZZw__&Key-Pair-Id=APKAJAGZ7VMH2PFPW6UQ");
 
-            var discaudio = new Audio("https://vocaroo.com/media_command.php?media=s0I5xPb1yGTP&command=download_mp3");
+            var discaudio = new Audio("https://cf-hls-media.sndcdn.com/media/31763/79410/plJXhDQRAKHO.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLWhscy1tZWRpYS5zbmRjZG4uY29tL21lZGlhLyovKi9wbEpYaERRUkFLSE8uMTI4Lm1wMyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTQ4OTY3Mzc1M319fV19&Signature=foSx0t7H6cdz9SrFuwtdSw-jM~ajagm9Z1GKVSg-j8RkJKq2DoRyiGZ8oYE9iCGvbx5A9qVQYrluV-tdzmXdEG5LaO7X-uQaBDhrIyqPdcyAle5x4rso0AxL5-JTmKCMKSOagESoipfEaHLe8bE4neIejCg9VmOP~i2JYmD3p7P8SIpmbjxfgHZvqgzeHGRwX~oSycG1ssmzUNxwAhLxYqrSaQKbuVy4Lyj-3Ts0TtV7qvWPns2YGEUWsjwbe63KHs7zIvHpN1Rcp6uqIZQSicC6urmxk2LvQpOVpYv7b4D~U9zXZ1R9jr7EoSgntMhTiEiujv2O474Qo00eyj5ZZw__&Key-Pair-Id=APKAJAGZ7VMH2PFPW6UQ");
             var url = window.location.href;
             var socket = io.connect(url);
 
