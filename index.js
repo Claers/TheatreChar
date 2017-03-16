@@ -40,12 +40,15 @@ io.sockets.on('connection', function (socket) {
 
 app.set('port', (process.env.PORT || 8080));
 server.listen(app.get('port'));
-var save = ["Démarrage du chat merci de vous reconnecter"];
-io.sockets.on('connection', function (socket, username) {
 
+var save = ["Démarrage du chat merci de vous reconnecter"];
+var connected = [""];
+
+
+io.sockets.on('connection', function (socket, username) {
+    socket.emit('userlist', connected);
     socket.emit('logs', save );
    // Quand le serveur reçoit un signal de type "message" du client    
-
      socket.on('login', function (data){
        var id = data.userid;
        var pass = data.password;
@@ -59,6 +62,7 @@ io.sockets.on('connection', function (socket, username) {
             socket.username = "Florent";
             socket.emit('username', username);
             socket.broadcast.emit('username', username);
+            connected.push(username);
             break;
 
           case "AdriChien | jepue":
@@ -68,6 +72,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Adrien";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
           case "test | test":
@@ -77,6 +82,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Robot";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
           case "Simon | cul":
@@ -86,6 +92,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Simon";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
           case "Paul | mars":
@@ -95,6 +102,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Paul";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
           case "Denis | sansnez":
@@ -104,6 +112,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Denis";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
           case "Nancy | cynan":
@@ -113,6 +122,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Nancy";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
           case "Mallaury | drago":
@@ -122,6 +132,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Mallaury";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
           case "Jonathan | leblack":
@@ -131,6 +142,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Jonathan";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
            case "Amandine | bellatrix":
@@ -140,6 +152,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Amandine";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
            case "Caroline | killian":
@@ -149,6 +162,7 @@ io.sockets.on('connection', function (socket, username) {
              socket.username = "Caroline";
              socket.emit('username', username);
              socket.broadcast.emit('username', username);
+             connected.push(username);
              break;
 
           default: 
@@ -156,8 +170,9 @@ io.sockets.on('connection', function (socket, username) {
             console.log('incorrect');
             break;
 
-       }
-
+       }  
+       socket.broadcast.emit('userlist', connected);
+       socket.emit('userlist', connected);
        console.log(id + pass);
     });
 
@@ -174,6 +189,9 @@ io.sockets.on('connection', function (socket, username) {
 
      socket.on('disconnect', function(){
       if (socket.username != null){
+        var index = connected.indexOf(socket.username);
+        connected.splice(index, 1)
+        socket.broadcast.emit('userlist', connected);
         socket.broadcast.emit('disco', socket.username);
       }
     });

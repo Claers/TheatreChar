@@ -35,7 +35,11 @@
         </form>
 
     </div>
-</div>
+    <div id="users">
+        <p> Connectés : <p>
+
+    </div>
+    </div>
         <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
 
@@ -52,7 +56,7 @@
             socket.on('error', function() {
                 location.reload();
             });
-
+            $("#users").append('<div id="userlist"> </div>');
             
             socket.on('username', function(username){
                 user = username;
@@ -62,10 +66,19 @@
 
             });
 
+            socket.on('userlist', function(users){
+                $("#userlist").remove();
+                $('#users').append('<div id="userlist"> </div>');
+                users.forEach(function(user){
+                    $('#userlist').append('<p>' + user + '</p>');
+                })
+            });
+
             socket.on('login',function(ok){
                     if (ok == 'log') {
                         $("#message").show();
                         $("#login").hide();
+                        document.getElementById('users').style.marginTop = '1%';
                     }
                     if (ok == 'incorrect'){
                         alert("Incorrect");
@@ -79,6 +92,7 @@
                 $('#chatbox').append('<p> <strong>' + user + " c'est déconnecté !" + ' </strong> </p>');
                 scroll();
                 discaudio.play();
+
             })
             socket.on('logs', function(logs){
                 logs.forEach(function(save){
@@ -135,7 +149,17 @@
 
 
         <style>
-
+        #userlist{
+            max-height: 150px;
+            border : 1px solid;
+            box-shadow: 1px 1px 2px #888888, 1px 1px 2px #888888;
+            overflow-y: scroll;
+            margin-left: 200px;
+            margin-right: 200px;
+        }
+        #users{
+            margin-top: 31%;
+        }
         #login {
 
               padding-top: 40px;
