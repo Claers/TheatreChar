@@ -38,12 +38,12 @@
         <script src="/socket.io/socket.io.js"></script>
 
         <script>
-            var messageaud = new Audio('http://vocaroo.com/media_command.php?media=s0ruoB8zS2Ql&command=download_mp3');
+            var messageaud = new Audio('http://s1.vocaroo.com/media/download_temp/Vocaroo_s0LCBZE8vRjv.mp3');
                 $("#message").hide();
             
-            var connecaud = new Audio("http://vocaroo.com/media_command.php?media=s1rxb8GtBy79&command=download_mp3");
+            var connecaud = new Audio("http://vocaroo.com/media_command.php?media=s0I5xPb1yGTP&command=download_mp3");
 
-            var discaudio = new Audio("http://vocaroo.com/media_command.php?media=s09ip6daZFIZ&command=download_mp3");
+            var discaudio = new Audio("http://vocaroo.com/media_command.php?media=s0I5xPb1yGTP&command=download_mp3");
             var url = window.location.href;
             var socket = io.connect(url);
             
@@ -129,19 +129,23 @@
               margin-right: 18px;
         }
         #chatbox{
+        margin-top: 50px;
         position:fixed;
         height: 800px;
         width: 99%;
-        overflow:auto;
+        overflow-y:auto;
         float: left;
+        word-break: break-all;
         position: relative;
         margin-left: 5px;
-
+        border-radius: 5px;
+        border : 1px solid;
+        box-shadow: 1px 1px 2px #888888, 1px 1px 2px #888888;
         }
         #message{
             
              position: absolute; 
-            bottom:0;
+            bottom:20px;
             padding-left: 0px;
             padding-right: 92%;
         }
@@ -157,7 +161,7 @@
             bottom:1%;
             margin-left: 5px;
             position: absolute;
-            padding-right: 90%;
+            width: 90%;
         }
         #header{
             text-align: center;
