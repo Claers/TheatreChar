@@ -115,7 +115,7 @@ io.sockets.on('connection', function (socket, username) {
              connected.push(username);
              break;
 
-          case "Nancy | cynan":
+          case "Nancy | ania":
              var loged = 'log';
              socket.emit('login', loged);
              var username = "Nancy";
